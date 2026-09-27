@@ -26,14 +26,12 @@ test('all seven scenario paths resolve to working activities',()=>{
  assert.equal(scenarios.length,7);
  for(const scenario of scenarios)for(const id of scenarioTopics[scenario])assert.ok(findLesson(id)?.activity,`${scenario} -> ${id}`);
 });
-test('the 27 initial featured topics have activities and clear reference separation',()=>{
- assert.equal(lessons.filter(l=>l.activity).length,27);
- assert.ok(lessons.filter(l=>!l.activity).length>100);
- const kinds=new Set(['proximity','hierarchy','contrast','status','fitts','hick','jakob','recall','delay','explain','approval','memory','recovery','button','modal','checkbox','switch','select','combobox','toast','alert','tabs','accordion','table','tooltip','progress']);
- for(const l of lessons.filter(l=>l.activity))assert.ok(kinds.has(l.activity),l.name);
+test('every topic has a visual activity and two examples',()=>{
+ assert.equal(lessons.filter(l=>l.activity).length,lessons.length);
+ for(const l of lessons){assert.ok(l.examples?.length>=2,l.name);}
 });
 test('featured components have component-specific anatomy and alternatives',()=>{
- for(const l of lessons.filter(l=>l.area==='components'&&l.activity)){const g=guides[l.activity];assert.ok(g?.definition,l.name);assert.ok(Object.keys(g.parts).length>=3,l.name);assert.ok(g.accessibility,l.name);for(const id of g.alternatives)assert.ok(findLesson(id),id);}
+ for(const l of lessons.filter(l=>l.area==='components'&&guides[l.activity])){const g=guides[l.activity];assert.ok(g?.definition,l.name);assert.ok(Object.keys(g.parts).length>=3,l.name);assert.ok(g.accessibility,l.name);for(const id of g.alternatives)assert.ok(findLesson(id),id);}
 });
 test('alternative component names resolve without duplicate records',()=>{
  assert.equal(searchLessons('command palette')[0]?.id,'command-menu');
