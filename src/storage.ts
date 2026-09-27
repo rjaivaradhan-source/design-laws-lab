@@ -1,0 +1,5 @@
+import { useState } from 'react';
+export function useStored<T>(key:string,initial:T){const [value,setValue]=useState<T>(()=>{try{return JSON.parse(localStorage.getItem(key)||'null')??initial}catch{return initial}});const update=(next:T|((v:T)=>T))=>setValue(old=>{const v=typeof next==='function'?(next as (v:T)=>T)(old):next;try{localStorage.setItem(key,JSON.stringify(v))}catch{/* Browser storage may be unavailable. Session remains usable. */}return v});return [value,update] as const;}
+export type Progress={saved:string[];completed:string[];recent:string[];scenarios:string[];answers:Record<string,string>};
+export const initialProgress:Progress={saved:[],completed:[],recent:[],scenarios:[],answers:{}};
+export function contrastRatio(fg:string,bg:string){const lum=(hex:string)=>{const v=hex.replace('#','').match(/.{2}/g)!.map(n=>parseInt(n,16)/255).map(n=>n<=.04045?n/12.92:((n+.055)/1.055)**2.4);return .2126*v[0]+.7152*v[1]+.0722*v[2]};const a=lum(fg),b=lum(bg);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
