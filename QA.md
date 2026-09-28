@@ -3,12 +3,22 @@
 ## Automated checks
 
 - Production TypeScript and Vite build: passed.
-- `npm test`: 7 tests passed; 0 failures.
-- Catalog integrity: 181 unique canonical topics, 27 activity-backed topics, 154 clearly marked references, 134 component records. All internal topic and scenario references resolve.
+- `npm test`: 8 tests, including server rendering of every component activity and its restored completed state.
+- Catalog integrity: 181 unique canonical topics, including 134 components with explicit activity briefs and renderers. All internal topic and scenario references resolve.
 - Search examples: checkbox vs. switch, reducing checkout choices, critical error, AI explanation, primary-button hierarchy, modal usage, transient messages, one-of-many choices, and delete confirmation resolve to the intended leading results.
 - Contrast formula: black/white = 21:1; identical colors = 1:1; the normal-text threshold is checked against the unrounded ratio.
 
-## Browser checks
+## Component revision — 2026-09-28
+
+- All 134 component lesson routes render their component-specific stage and both example contexts without application console errors.
+- Each component was exercised in both examples using its actual input, selection, disclosure, or action; reflection completion becomes available after both examples and the correct purpose answer. Native date, time, and color input handling was corrected during this check.
+- All 134 component routes fit 390-pixel and 320-pixel viewports without document-level horizontal overflow.
+- Wrong reflection answers explain the mismatch and keep completion disabled. Completing both examples and choosing the correct purpose enables completion. Typography completion was saved, restored after reload, and verified in the dashboard with its specific reflection.
+- Additional behavior checks passed for multiple checkbox selections, exclusive radio choices, invalid and corrected date intervals, Kanban state movement, modal focus/escape/restoration, tab arrow keys, AI memory deletion, permission denial with manual fallback, and undo.
+- Native dialogs use modal focus handling and restore focus on closing. Tabs expose panel relationships and arrow-key navigation. Kanban includes button-based movement; uploads remain local; AI behavior is explicitly simulated.
+- These are small instructional examples, not full production component-library implementations. The two contexts use travel and learning tasks with sample data. No real account, payment, upload, calendar access, model call, or message is created.
+
+## Original build checks (historical)
 
 Tested in the Codex Chromium-based in-app browser, against the production build.
 
@@ -36,7 +46,7 @@ Tested in the Codex Chromium-based in-app browser, against the production build.
 - Intentional low-contrast or undersized controls occur inside clearly identified teaching demonstrations. Their surrounding explanations and controls remain available.
 - Search uses transparent local intent matching and keyword ranking; it is not a conversational AI search service.
 - User uploads are not analyzed by an AI service. The supported initial critique experience is the explicitly labeled sample plus manual review and comparison.
-- The non-featured reference catalog does not have completed interactive lessons. Each such entry is labeled as planned.
+- The 134 component entries now have their own activities. Non-featured UI/UX/AI principle topics still use the previous general topic activity; this component revision does not claim to replace those experiences.
 - There is no account, cross-device sync, backend, public deployment, or configured remote repository.
 
 Additional responsive check: all eight main pages fit a 768-pixel viewport (753-pixel content area), and mobile navigation reaches My Progress. The viewport override and test theme changes were restored after verification.

@@ -27,9 +27,9 @@ If an environment blocks the native dependency optimizer while running the devel
 ## What's implemented
 
 - Eight main pages: Home, UI Laws, UX Laws, AI UX Principles, UI Components, Rule-Breaking Lab, Design Critique, and Learning Dashboard.
-- **27 featured interactive lessons**, comprising the complete initial set requested in the final brief. Each has a task, adjustable or actionable example, contextual feedback, reset, explanation, reflection, and completion tracking.
-- **181 canonical topics**, including **134 component references**. The other **154 topics** are explicitly labeled **Reference · activity planned**, rather than being presented as completed activities. Fitts's Law and Recognition over Recall are cross-listed without duplicating records.
-- Beginner-question search, aliases, category and activity filters, scenario filters, saved topics, recent lessons, actual saved reflection answers, and seven connected product scenarios.
+- **134 component learning activities**, each with an explicit teaching brief, a visual demonstration of its own behavior, two named practical contexts, action feedback, reflection feedback, reset, and persisted completion. Related components share appropriate primitives while demonstrating their distinct purpose.
+- **181 canonical topics** across components, UI, UX, and AI. Existing principle activities remain available; the non-featured principle topics still use the earlier general topic activity and are not claimed to be individually authored by this component revision. Fitts's Law and Recognition over Recall are cross-listed without duplicating records.
+- Beginner-question search, aliases, category and saved-topic filters, scenario filters, saved topics, recent lessons, saved reflections, and seven connected product scenarios.
 - Live homepage experiments, a pointer/touch/keyboard comparison slider, component-specific anatomy, component comparisons, and a component decision tool.
 - Ten Rule-Breaking Lab experiments with common, broken, improved, and contextual-exception views.
 - Light/dark themes, reduced-motion support, increased text size, high contrast, native form controls, visible focus, modal focus behavior, keyboard tabs, and touch-accessible help.
@@ -56,7 +56,7 @@ npm test
 npm run build
 ```
 
-Seven automated tests cover canonical IDs and internal references, natural-language search ranking, reference contrast ratios and thresholds, scenario paths, the featured activity inventory, component anatomy/alternatives, and aliases.
+Eight automated tests cover canonical IDs, search ranking, contrast math, scenario paths, component guidance, aliases, and server rendering of every component activity. The rendering audit checks all 134 catalog entries, real controls in their visual stages, absence of the generic component fallback, and restoration of completed state.
 
 See `QA.md` for browser checks, tested widths, and remaining verification limits. These checks are not a claim of complete WCAG conformance or proof of real-world usability.
 
@@ -64,6 +64,9 @@ See `QA.md` for browser checks, tested widths, and remaining verification limits
 
 - `src/App.tsx`: navigation, page composition, search, learning libraries, lesson detail, component choice/comparison, rule-breaking experiments, scenarios, dashboard, and settings.
 - `src/Activities.tsx`: reusable activity shell, native interactive demos, feedback, homepage experiment, and comparison slider.
+- `src/ComponentActivities.tsx`: component-specific controls, visual examples, local simulated workflows, teaching feedback, and completion.
+- `src/componentExperiments.ts`: an explicit task, two contexts, and a teaching explanation for each of the 134 components.
+- `src/components-lab.css`: responsive component learning surfaces and demo-specific layouts.
 - `src/Critique.tsx`: lazy-loaded local upload/PDF pipeline, annotated sample, manual findings, revision comparison, and report export.
 - `src/content.ts`: canonical topic catalog, searchable aliases, cross-links, scenarios, and references.
 - `src/guides.ts`: component-specific definitions, anatomy, states, limitations, accessibility behavior, and activity metadata.
@@ -71,7 +74,7 @@ See `QA.md` for browser checks, tested widths, and remaining verification limits
 - `src/styles.css`: shared visual tokens, responsive layouts, themes, and motion preferences.
 - `tests/core.test.mjs`: automated content/search/math checks.
 
-To add an activity, give the catalog entry an `activity` key, implement the corresponding demo in `ActivityBody`, add its guidance/metadata, and test its keyboard path and feedback. Keep incomplete demos marked as planned. To add real analysis later, implement an explicit service boundary, privacy/retention disclosures, evidence-linked findings, version IDs, and uncertainty handling; do not reuse sample findings as generated output.
+To add a component, add its explicit brief in `componentExperiments.ts`, implement its behavior in `ComponentDemo`, and verify both examples and completion. There is no generic component fallback: missing entries fail the catalog or render audit. For principle activities, use `ActivityBody`. To add real analysis later, implement an explicit service boundary, privacy/retention disclosures, evidence-linked findings, version IDs, and uncertainty handling; do not reuse sample findings as generated output.
 
 ## Sources and design
 
