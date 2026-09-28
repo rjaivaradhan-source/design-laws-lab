@@ -50,10 +50,12 @@ test('all 134 components have a dedicated brief and render an actionable visual 
  assert.equal(components.length,134);
  assert.deepEqual(new Set(Object.keys(componentExperiments)),new Set(components.map(l=>l.id)));
  const source=(await readFile(new URL('../src/ComponentActivities.tsx',import.meta.url),'utf8')).replace("import './components-lab.css';",'').replace("from './componentExperiments'","from '../src/componentExperiments.ts'").replace("from './TypographyExperiment'","from './typography-render-audit.mjs'");
- const {code}=await transform(source,{loader:'tsx',format:'esm',jsx:'automatic'});
+ const {code}=await transform(source.replace("from './IconographyExperiment'","from './iconography-render-audit.mjs'"),{loader:'tsx',format:'esm',jsx:'automatic'});
  await mkdir(new URL('../.vite/',import.meta.url),{recursive:true});
  const typography=await transform(await readFile(new URL('../src/TypographyExperiment.tsx',import.meta.url),'utf8'),{loader:'tsx',format:'esm',jsx:'automatic'});
  await writeFile(new URL('../.vite/typography-render-audit.mjs',import.meta.url),typography.code);
+ const iconography=await transform(await readFile(new URL('../src/IconographyExperiment.tsx',import.meta.url),'utf8'),{loader:'tsx',format:'esm',jsx:'automatic'});
+ await writeFile(new URL('../.vite/iconography-render-audit.mjs',import.meta.url),iconography.code);
  await writeFile(new URL('../.vite/component-render-audit.mjs',import.meta.url),code);
  const {ComponentActivity}=await import('../.vite/component-render-audit.mjs');
  for(const lesson of components){

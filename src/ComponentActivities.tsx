@@ -4,6 +4,7 @@ import './components-lab.css';
 import type { Lesson } from './content';
 import { componentExperiments } from './componentExperiments';
 import { TypographyExperiment } from './TypographyExperiment';
+import { IconographyExperiment } from './IconographyExperiment';
 
 export function ComponentActivity({lesson,onComplete,completed=false}:{lesson:Lesson;onComplete?:(reflection:string)=>void;completed?:boolean}) {
  const brief=componentExperiments[lesson.id];
@@ -50,7 +51,7 @@ function ComponentDemo({id,example,report}:{id:string;example:number;report:(mes
  // Foundations: the controls change the actual visual variable being taught.
  case 'color':return <><div className="component-status-list">{['Confirmed','Needs correction','Pending'].map((s,i)=><div key={s}><span className={`status-swatch swatch-${i}`} aria-hidden="true"/>{on?<strong>{['✓','!','…'][i]} {s}</strong>:<span>Item {i+1}</span>}</div>)}</div>{toggle('Add text and symbols',checked=>act(checked?'The red item now says Needs correction. Meaning is available without recognizing the color.':'Only colored marks remain. Identifying the problem now depends on interpreting color.'))}</>;
  case 'typography':return <TypographyExperiment example={example} report={report}/>;
- case 'iconography':return <><button aria-label={`Save ${subject}`} onClick={()=>{setPhase('saved');act(`The bookmark saves this ${subject}. The visible label helps explain the symbol before someone clicks.`)}}><Bookmark/>{on&&`Save ${subject}`}</button>{toggle('Show the action label',v=>act(v?'The label names the action. New users no longer need to infer the bookmark’s meaning.':'The button still has an accessible name, but sighted newcomers must recognize the icon.'))}{phase==='saved'&&<p>✓ Saved {subject}</p>}</>;
+ case 'iconography':return <IconographyExperiment example={example} report={report}/>;
  case 'spacing':return <>{range('Gap between groups',0,40,value,n=>{setValue(n);act(`Groups are ${n}px apart; labels remain 4px from their values. Compare within-group and between-group distances.`)})}<div className="component-paper" style={{display:'grid',gap:value}}>{[`${person} name`,'Contact email','Emergency contact'].map((label,i)=><div key={label}><small>{label}</small><div className="component-value">{['Alex Rivera','alex@example.com','Sam Rivera'][i]}</div></div>)}</div></>;
  case 'grid':return <>{choose('Columns',['1','2','3'],selected,n=>{setSelected(n);act(`The same cards now share ${n+1} column${n?'s':''}. Their edges follow a common grid.`)})}<div className="component-card-grid" style={{gridTemplateColumns:`repeat(${selected+1},minmax(0,1fr))`}}>{[...nouns,...nouns].map((n,i)=><div className="component-tile" key={i}>{n}<small>Item {i+1}</small></div>)}</div></>;
  case 'layout':return <>{toggle('Place supporting details beside the task',v=>act(v?'Main task and supporting summary can be compared side by side when space permits.':'The summary follows the task in one reading column.'))}<div className={`component-layout ${on?'alongside':''}`}><section><h3>Review your {subject}</h3><p>{nouns[0]} · one {example?'course':'ticket'}</p><button className="primary" onClick={()=>act('The primary action remains in the main task region in either layout.')}>Confirm</button></section><aside><strong>Summary</strong><p>Total: ₹2,400</p></aside></div></>;
