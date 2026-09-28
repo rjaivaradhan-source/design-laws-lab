@@ -9,6 +9,22 @@ const iconStyles = [
  {id:'sharp',name:'Sharp outline',description:'Square corners and angular joins create a more geometric appearance. Useful in a precise visual system; sharpness alone does not improve recognition.'},
 ] as const;
 type IconStyle = typeof iconStyles[number]['id'];
+const styleExamples = {
+ outline:{symbol:'Search lens',context:'Library search',action:'Find a lesson',result:'Found: Typography basics · 6 minute lesson',why:'The open lens keeps this utility action visually light. The label explains what you can search.'},
+ solid:{symbol:'Play triangle',context:'Video lesson',action:'Play preview',result:'Playback state: playing (simulated; no video is loaded).',why:'The solid triangle gives the primary playback action a clear silhouette. Its label communicates playback state.'},
+ duotone:{symbol:'Folder',context:'Course materials',action:'Open resources',result:'Resources: Practice worksheet · Reading notes',why:'A light folder body and stronger outline separate the surface from its edges. The text still names the destination.'},
+ rounded:{symbol:'Chat bubble',context:'Learning support',action:'Ask for help',result:'Help prompt: Which part of this lesson would you like explained?',why:'The soft corners support a friendly support interface. They do not replace a clear invitation to ask a question.'},
+ sharp:{symbol:'Crop frame',context:'Image editor',action:'Enable crop tool',result:'Crop tool enabled — adjust the image boundaries.',why:'Angular corners echo the precise boundaries of an editing tool. A label helps beginners distinguish crop from resize.'},
+} as const;
+function ExampleSymbol({variant}:{variant:IconStyle}) {
+ return <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" focusable="false">
+ {variant==='outline'?<><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></>:variant==='solid'?<path d="M6 3 21 12 6 21Z" fill="currentColor" stroke="none"/>:variant==='duotone'?<><path d="M3 7H21V20H3Z" fill="currentColor" fillOpacity=".2" stroke="none"/><path d="M3 20V4H9L12 7H21V20Z" strokeLinejoin="round"/></>:variant==='rounded'?<><path d="M7 4H17Q21 4 21 8V14Q21 18 17 18H9L4 21V17Q3 16 3 14V8Q3 4 7 4Z" strokeLinejoin="round"/><path d="M7 10H17M7 14H13" strokeLinecap="round"/></>:<path d="M6 2V18H22M2 6H18V22" strokeLinejoin="miter" strokeLinecap="square"/>}
+ </svg>;
+}
+function StyleExample({variant,report}:{variant:IconStyle;report:(message:string)=>void}) {
+ const [active,setActive]=useState(false);const demo=styleExamples[variant];
+ return <div className="component-paper"><small>{demo.context} · {demo.symbol}</small><p>{demo.why}</p><button aria-pressed={active} onClick={()=>{setActive(!active);report(`${demo.context}: ${demo.why}`)}}><ExampleSymbol variant={variant}/>{active?'Reset example':demo.action}</button><p role="status">{active?demo.result:'Try this example to see the action and its feedback.'}</p><small>Local demonstration only.</small></div>;
+}
 function StyleSymbol({variant,size,heart=false}:{variant:IconStyle;size:number;heart?:boolean}) {
  const rounded=variant==='rounded';
  const path=heart?'M12 20 3.5 11.5C-2 5 6 0 12 6C18 0 26 5 20.5 11.5Z':rounded?'M6 3H18Q19 3 19 4V20L12 16L5 20V4Q5 3 6 3Z':'M5 3H19V21L12 17L5 21Z';
@@ -17,8 +33,8 @@ function StyleSymbol({variant,size,heart=false}:{variant:IconStyle;size:number;h
 function IconStyleLab({report}:{report:(message:string)=>void}) {
  const [variant,setVariant]=useState<IconStyle>('outline'),[size,setSize]=useState(32),[heart,setHeart]=useState(false);
  const selected=iconStyles.find(style=>style.id===variant)!;
- return <section className="icon-style-lab" aria-label="Icon style comparison"><h3>3. Same meaning, different styles</h3><p>Compare the same symbol at the same size. Style changes its visual weight and character; it does not change the action.</p>
- <div className="icon-meaning-grid">{iconStyles.map(style=><div key={style.id}><StyleSymbol variant={style.id} size={32} heart={heart}/><strong>{style.name}</strong><p>{style.description}</p></div>)}</div>
+ return <section className="icon-style-lab" aria-label="Icon style comparison"><h3>3. See each style in a real task</h3><p>Each style below has a different representative icon and its own example. Then use the shared-symbol preview to compare styles without changing the meaning.</p>
+ <div className="icon-style-examples">{iconStyles.map(style=><div key={style.id}><div className="icon-symbol"><ExampleSymbol variant={style.id}/><strong>{style.name}</strong></div><p>{style.description}</p><StyleExample variant={style.id} report={report}/></div>)}</div>
  <h4>Try a style in context</h4><div className="typography-control-grid"><label className="component-field">Icon style<select value={variant} onChange={e=>{setVariant(e.target.value as IconStyle);report(iconStyles.find(style=>style.id===e.target.value)!.description)}}>{iconStyles.map(style=><option key={style.id} value={style.id}>{style.name}</option>)}</select></label><label className="component-field">Compare symbol<select value={heart?'heart':'bookmark'} onChange={e=>{setHeart(e.target.value==='heart');report('Compare two shapes in each style. A family should remain recognizable across different symbols, not just one attractive icon.')}}><option value="bookmark">Bookmark · Save for later</option><option value="heart">Heart · Like</option></select></label><label className="component-field">Style preview size: {size}px<input type="range" min="16" max="48" step="8" value={size} onChange={e=>{setSize(+e.target.value);report('Compare the silhouette at small and large sizes. Fine details and light tones can become harder to distinguish as the icon shrinks.')}}/></label></div>
  <div className="component-paper icon-symbol"><StyleSymbol variant={variant} size={size} heart={heart}/><div><strong>{heart?'Like':'Save for later'}</strong><p>{selected.name} · {size}px · same action, different appearance</p></div></div><p><strong>Style is not state.</strong> This filled preview does not mean an item has been saved or liked. If your product uses fill to indicate selection, pair it with a clear label and an accessible pressed state.</p><p><strong>Rounded and sharp are shape treatments.</strong> They can also be combined with filled or duotone styles. Here they use outlines so you can compare the corners. The heart already has curves, so its corner differences are subtler than the bookmark’s.</p></section>;
 }
