@@ -2,7 +2,7 @@ export type Experiment = { task:string; contexts:[string,string]; lesson:string 
 // Each catalog component has an explicit teaching brief. Missing entries fail coverage tests.
 const rows = [
 ['color','Identify the error with and without color.','Payment status','Assignment status','Color can reinforce meaning, but a written status still works when colors are hard to distinguish.'],
-['typography','Adjust the text until you can scan the title and comfortably read the paragraph.','Travel article','Course introduction','Size and weight create hierarchy; line height and line length affect reading comfort.'],
+['typography','Compare font weights and line heights: make the heading distinct and the paragraphs comfortable to read.','Travel article','Course introduction','Weight changes stroke thickness; line height changes the vertical space for each line. Adjust heading and body independently to compare hierarchy and reading comfort.'],
 ['iconography','Predict the icon action, then reveal its label.','Save a trip','Save a lesson','A familiar symbol saves space. A visible label reduces guessing when the symbol is ambiguous.'],
 ['spacing','Separate unrelated groups while keeping labels close to their values.','Passenger details','Student details','Use smaller gaps within a group and larger gaps between groups. Equal gaps hide the relationship.'],
 ['grid','Change the column count and watch the cards align.','Destination catalog','Course catalog','Columns and gutters create a shared alignment system. More columns are useful only while the content fits.'],
