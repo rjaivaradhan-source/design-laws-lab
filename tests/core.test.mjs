@@ -4,10 +4,34 @@ import { lessons, searchLessons, findLesson, scenarios, scenarioTopics } from '.
 import { contrastRatio } from '../src/storage.ts';
 import { guides } from '../src/guides.ts';
 import { componentExperiments } from '../src/componentExperiments.ts';
+import { lawExperiments } from '../src/lawExperiments.ts';
 import { transform } from 'esbuild';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+
+test('every UI and UX lesson has a principle-specific implementation',async()=>{
+ const existing=new Set(['proximity','hierarchy','contrast','status','fitts','hick','jakob','recall','delay']);
+ const principles=lessons.filter(l=>l.area==='ui'||l.area==='ux');
+ for(const lesson of principles)assert.ok(lawExperiments[lesson.id]||existing.has(lesson.activity),`Generic or missing activity: ${lesson.id}`);
+ assert.equal(Object.keys(lawExperiments).length,24);
+ assert.equal(searchLessons('law of parsimony')[0].id,'occams-razor');
+ const source=(await readFile(new URL('../src/LawActivities.tsx',import.meta.url),'utf8')).replace("import './components-lab.css';",'').replace("from './lawExperiments'","from '../src/lawExperiments.ts'");
+ const {code}=await transform(source,{loader:'tsx',format:'esm',jsx:'automatic'});
+ await mkdir(new URL('../.vite/',import.meta.url),{recursive:true});
+ await writeFile(new URL('../.vite/law-render-audit.mjs',import.meta.url),code);
+ const {LawActivity}=await import('../.vite/law-render-audit.mjs');
+ for(const id of Object.keys(lawExperiments)){
+  const lesson=findLesson(id);assert.ok(lesson,id);
+  const html=renderToStaticMarkup(createElement(LawActivity,{lesson}));
+  assert.ok(!html.includes('No experiment is registered'),id);
+  assert.ok(!html.includes('topic-mock'),id);
+  const stage=html.split('law-stage')[1]?.split('class="feedback"')[0]||'';
+  assert.match(stage,/<(input|button|select|textarea)[\s>]/,id);
+  assert.ok(html.includes(lawExperiments[id].contexts[0]),id);
+  assert.ok(renderToStaticMarkup(createElement(LawActivity,{lesson,completed:true})).includes('Lesson completed'),id);
+ }
+});
 
 test('catalog IDs are canonical and every cross-reference resolves',()=>{
  const ids=lessons.map(l=>l.id);
