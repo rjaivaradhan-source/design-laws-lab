@@ -9,6 +9,8 @@
 .component-example-buttons .selected{border:2px solid var(--blue);background:var(--blue-soft)}
 .component-experiment{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(250px,1fr);border:1px solid var(--border);border-radius:16px;overflow:hidden;container-type:inline-size}
 .component-stage{padding:28px;background:var(--surface-soft);min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:18px;min-height:350px;container-type:inline-size}
+.component-experiment-color{grid-template-columns:minmax(0,1fr)}
+.component-experiment-color .component-coach{border-left:0;border-top:1px solid var(--border)}
 .component-stage>.eyebrow{margin-bottom:8px;line-height:1.7;color:var(--muted)}
 .component-stage p,.component-stage label,.component-stage button,.component-stage input,.component-stage select,.component-stage textarea,.component-coach p{font-size:1rem;line-height:1.6}
 .component-stage button{min-height:44px;white-space:normal;word-break:normal}
@@ -116,6 +118,7 @@
 .component-completion{display:flex;align-items:center;gap:18px;margin-top:24px}.component-completion p{font-size:.9rem;line-height:1.7}.component-completion button{flex-shrink:0}
 @media(max-width:1000px){.component-experiment{grid-template-columns:minmax(0,1fr)}.component-coach{border-left:0;border-top:1px solid var(--border)}}
 @media(max-width:600px){.component-stage,.component-coach{padding:18px}.component-example-buttons{grid-template-columns:1fr}.component-card-grid,.component-layout.alongside{grid-template-columns:1fr}.component-stage .component-navigation{flex-wrap:wrap}.component-stage .nav-sidebar nav{flex-basis:100px}.component-master-detail{grid-template-columns:1fr}.component-master-detail>aside{border-left:0;border-top:1px solid var(--border)}.component-kanban{grid-template-columns:1fr}.component-kanban>section{min-height:100px}.component-completion{flex-direction:column;align-items:stretch}.component-stage input[type=file]{font-size:.875rem}.component-description{grid-template-columns:1fr;gap:8px}.component-description dd{margin-bottom:10px}.component-lesson .activity-title{align-items:flex-start}.component-lesson .activity-title button{font-size:.8rem}}
+.component-experiment-color .component-stage{padding:12px}
 @media(prefers-reduced-motion:reduce){.component-spinner{animation:none}}
 .icon-symbol{display:flex;align-items:center;gap:16px;padding:16px;border:1px dashed var(--border);border-radius:12px}.icon-action-bar{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}.icon-action-bar button{display:inline-flex;align-items:center;justify-content:center;gap:8px}.icon-meaning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.icon-meaning-grid>div{padding:16px;border:1px solid var(--border);border-radius:12px}.icon-meaning-grid strong{display:block;margin-top:8px}
 .icon-style-examples{display:grid;gap:24px}.icon-style-examples>div{padding:16px;border:1px solid var(--border);border-radius:12px}.icon-style-examples button{display:inline-flex;align-items:center;gap:12px;margin-top:12px}.icon-style-examples .component-paper{margin-top:12px}
