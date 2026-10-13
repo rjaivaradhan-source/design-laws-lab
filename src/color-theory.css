@@ -1,6 +1,9 @@
 .component-color-lab {
   display: grid;
   gap: 18px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .color-theory-intro,
@@ -9,6 +12,8 @@
   border-radius: 20px;
   background: var(--surface, #fff);
   padding: clamp(18px, 3vw, 28px);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .color-theory-intro {
@@ -34,7 +39,7 @@
 
 .color-theory-controls {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(150px, .8fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   align-items: end;
   border: 1px solid var(--border, #dfe5f2);
@@ -103,6 +108,7 @@
 .color-swatch-card code {
   font-size: .72rem;
   opacity: .9;
+  overflow-wrap: anywhere;
 }
 
 .color-section-heading {
@@ -127,7 +133,7 @@
 }
 
 .color-mode-buttons {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-bottom: 16px;
 }
 
@@ -205,7 +211,7 @@
 }
 
 .color-role-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .color-role-card {
@@ -234,7 +240,16 @@
 }
 
 .color-use-cases {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.color-theory-controls > *,
+.color-palette > *,
+.color-role-grid > *,
+.color-use-cases > *,
+.color-emotion-grid > *,
+.color-cta-presets > * {
+  min-width: 0;
 }
 
 .color-use-card {
@@ -446,6 +461,7 @@
   grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
   gap: 24px;
   align-items: center;
+  min-width: 0;
 }
 
 .color-wheel {
@@ -534,13 +550,18 @@
 }
 
 .color-wheel-popover {
+  position: fixed;
+  inset: clamp(16px, 8vh, 76px) clamp(16px, 8vw, 120px);
+  z-index: 100;
+  max-height: calc(100vh - clamp(32px, 16vh, 152px));
+  overflow: auto;
   display: grid;
   gap: 16px;
   border: 2px solid var(--blue, #3157ff);
   border-radius: 18px;
   background: var(--surface, #fff);
   padding: 18px;
-  box-shadow: 0 16px 40px rgba(16, 26, 58, .18);
+  box-shadow: 0 16px 40px rgba(16, 26, 58, .18), 0 0 0 100vmax rgb(16 26 58 / 24%);
 }
 
 .color-wheel-popover-heading {
@@ -548,6 +569,7 @@
   justify-content: space-between;
   gap: 14px;
   align-items: start;
+  flex-wrap: wrap;
 }
 
 .color-wheel-popover-heading strong {
@@ -570,6 +592,7 @@
   grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
   gap: 20px;
   align-items: center;
+  min-width: 0;
 }
 
 .color-wheel-popover-body > div > p {
@@ -583,6 +606,10 @@
 }
 
 @media (max-width: 620px) {
+  .color-wheel-popover {
+    inset: 12px;
+    max-height: calc(100vh - 24px);
+  }
   .color-wheel-popover-body {
     grid-template-columns: 1fr;
   }
@@ -597,7 +624,7 @@
 
 .color-emotion-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -682,6 +709,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+  flex-wrap: wrap;
   min-height: 78px;
   border: 1px solid var(--border, #dfe5f2);
   border-radius: 14px;
@@ -713,7 +741,7 @@
 
 .color-cta-presets {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -751,7 +779,7 @@
 
 .color-element-editor {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+  grid-template-columns: 1fr;
   gap: 18px;
   align-items: stretch;
 }
@@ -883,5 +911,29 @@
 @media (max-width: 760px) {
   .color-element-editor {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .color-theory-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(180px, .9fr);
+  }
+  .color-mode-buttons {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .color-role-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .color-use-cases {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .color-emotion-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .color-cta-presets {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .color-element-editor {
+    grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
   }
 }
