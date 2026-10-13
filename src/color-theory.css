@@ -914,6 +914,73 @@
   }
 }
 
+/* The Color lesson sits beside a coach panel, so viewport breakpoints alone
+   are not enough. These container rules follow the space the playground gets. */
+@container (max-width: 760px) {
+  .color-theory-controls,
+  .color-use-cases,
+  .color-role-grid,
+  .color-contrast-controls,
+  .color-cta-controls,
+  .color-element-editor {
+    grid-template-columns: 1fr;
+  }
+  .color-mode-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .color-wheel-layout {
+    grid-template-columns: 1fr;
+  }
+  .color-wheel {
+    justify-self: center;
+  }
+  .color-emotion-grid,
+  .color-cta-presets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (max-width: 420px) {
+  .color-mode-buttons,
+  .color-palette,
+  .color-emotion-grid,
+  .color-cta-presets {
+    grid-template-columns: 1fr;
+  }
+  .color-theory-intro,
+  .color-theory-section,
+  .color-theory-controls {
+    padding: 16px;
+  }
+  .color-wheel {
+    width: min(100%, 250px);
+  }
+}
+
+@container (min-width: 900px) {
+  .color-theory-controls {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(180px, .9fr);
+  }
+  .color-mode-buttons {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .color-role-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .color-use-cases {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .color-emotion-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .color-cta-presets {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .color-element-editor {
+    grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr);
+  }
+}
+
 @media (min-width: 1200px) {
   .color-theory-controls {
     grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(180px, .9fr);
