@@ -121,6 +121,18 @@
   border: 1px solid var(--border, #dfe5f2);
   border-radius: 12px;
   background: var(--surface-soft, #f6f8fc);
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+}
+
+.color-swatch-card:hover,
+.color-swatch-card:focus-visible {
+  border-color: var(--blue, #3157ff);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue, #3157ff) 13%, transparent);
 }
 
 .color-swatch {
@@ -462,6 +474,64 @@
 
 .color-wheel-guide li::marker {
   color: var(--blue, #3157ff);
+}
+
+.color-wheel-popover {
+  display: grid;
+  gap: 16px;
+  border: 2px solid var(--blue, #3157ff);
+  border-radius: 18px;
+  background: var(--surface, #fff);
+  padding: 18px;
+  box-shadow: 0 16px 40px rgba(16, 26, 58, .18);
+}
+
+.color-wheel-popover-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: start;
+}
+
+.color-wheel-popover-heading strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink, #101a3a);
+}
+
+.color-wheel-popover-heading button {
+  border: 1px solid var(--border, #dfe5f2);
+  border-radius: 8px;
+  background: var(--surface-soft, #f6f8fc);
+  color: var(--ink, #101a3a);
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.color-wheel-popover-body {
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.color-wheel-popover-body > div > p {
+  margin: 0 0 14px;
+  color: var(--muted, #65708c);
+  line-height: 1.5;
+}
+
+.color-wheel-popover-control {
+  width: min(100%, 240px);
+}
+
+@media (max-width: 620px) {
+  .color-wheel-popover-body {
+    grid-template-columns: 1fr;
+  }
+  .color-wheel-popover-control {
+    justify-self: center;
+  }
 }
 
 .color-emotion-section {
