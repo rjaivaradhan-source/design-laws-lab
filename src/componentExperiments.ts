@@ -1,7 +1,7 @@
 export type Experiment = { task:string; contexts:[string,string]; lesson:string };
 // Each catalog component has an explicit teaching brief. Missing entries fail coverage tests.
 const rows = [
-['color','Identify the error with and without color.','Payment status','Assignment status','Color can reinforce meaning, but a written status still works when colors are hard to distinguish.'],
+['color','Build a palette from hue, saturation, and lightness.','Brand system','Data dashboard','Color creates relationships: hue supports recognition, value builds hierarchy, semantic roles explain state, and contrast keeps the interface usable.'],
 ['typography','Compare font weights and line heights: make the heading distinct and the paragraphs comfortable to read.','Travel article','Course introduction','Weight changes stroke thickness; line height changes the vertical space for each line. Adjust heading and body independently to compare hierarchy and reading comfort.'],
 ['iconography','Predict icon meanings, then tune labels, size, stroke weight, and button area.','Travel action bar','Learning action bar','Icons communicate actions and states. Clear labels, consistent visual weight, and a usable button area help people recognize what will happen before they click.'],
 ['spacing','Separate unrelated groups while keeping labels close to their values.','Passenger details','Student details','Use smaller gaps within a group and larger gaps between groups. Equal gaps hide the relationship.'],

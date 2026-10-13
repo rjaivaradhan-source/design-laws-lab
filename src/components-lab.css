@@ -1,3 +1,4 @@
+@import './color-theory.css';
 .component-lesson{margin-block:24px;background:var(--surface);border-top:5px solid var(--blue)}
 .typography-control-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}.typography-reading-sample h3{letter-spacing:-.02em}.typography-reading-sample p{margin:20px 0 0}.typography-values{padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}.typography-values p{font-size:.9rem;line-height:1.7}
 @media(max-width:600px){.typography-control-grid{grid-template-columns:1fr}}
